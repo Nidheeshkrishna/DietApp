@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    android:gravity="center"
+    >
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cv_weedays"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        app:cardElevation="10dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
+        app:cardCornerRadius="10dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/img_calendar"
+                android:padding="10dp">
+            </ImageView>
+            <TextView
+                android:id="@+id/txtv_day"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Day"
+                android:textSize="18dp"
+                android:layout_gravity="center"
+                >
+            </TextView>
+            <TextView
+                android:id="@+id/id_day"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Dayid"
+                android:textSize="18dp"
+                android:layout_gravity="center"
+                />
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>
