@@ -77,25 +77,26 @@ public class UserVideoFragment extends Fragment implements SwipeRefreshLayout.On
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(),
                 LinearLayoutManager.VERTICAL, false));
         arr = new ArrayList<Bean>();
-        view_weight();
-        viewvideos(SignInActivity.uid);
+       // view_weight();
+      //  viewvideos(SignInActivity.uid);
 
-//        mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_trainers_user);
-//
-//
-//       mSwipeRefreshLayout.setOnRefreshListener(this);
-//        mSwipeRefreshLayout.setRefreshing(true);
-//        mSwipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary,
-//                android.R.color.holo_green_dark,
-//                android.R.color.holo_orange_dark,
-//                android.R.color.holo_blue_dark);
-//        mSwipeRefreshLayout.post(() -> {
-//            mSwipeRefreshLayout.setRefreshing(true);
-//            // Fetching data from server
-//            viewvideos(SignInActivity.uid);
-//
-//        });
 
+
+        mSwipeRefreshLayout = (SwipeRefreshLayout)view.findViewById(R.id.swipe_video_user);
+        mSwipeRefreshLayout.setOnRefreshListener(this);
+        mSwipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary,
+                android.R.color.holo_green_dark,
+                android.R.color.holo_orange_dark,
+                android.R.color.holo_blue_dark);
+        mSwipeRefreshLayout.post(new Runnable() {
+
+            @Override
+            public void run() {
+               // mSwipeRefreshLayout.setRefreshing(true);
+                // Fetching data from server
+               viewvideos("");
+            }
+        });
 
 
 
@@ -122,7 +123,9 @@ public class UserVideoFragment extends Fragment implements SwipeRefreshLayout.On
                         for (int i = 0; i < jar.length(); i++) {
                             JSONObject ob = jar.getJSONObject(i);
                             Bean Allshops = new Bean();
+                            String daysid = ob.getString("wid");
 
+                            String daynames = ob.getString("category");
                             arr.add(Allshops);
                             ad = new VideosAdpater(arr, getActivity());
                             recyclerView.setHasFixedSize(true);
@@ -154,7 +157,7 @@ public class UserVideoFragment extends Fragment implements SwipeRefreshLayout.On
 
         ApInterface ap = RetrofitClass.getClient().create(ApInterface.class);
         Call<ResponseBody> ca = ap.viewvideos();
-       // mSwipeRefreshLayout.setRefreshing(true);
+        mSwipeRefreshLayout.setRefreshing(true);
         ca.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -186,7 +189,7 @@ public class UserVideoFragment extends Fragment implements SwipeRefreshLayout.On
                             recyclerView.setAdapter(ad);
                             ad.notifyDataSetChanged();
                             // Stopping swipe refresh
-                            //mSwipeRefreshLayout.setRefreshing(false);
+                            mSwipeRefreshLayout.setRefreshing(false);
 
                         }
                     } catch (IOException e) {

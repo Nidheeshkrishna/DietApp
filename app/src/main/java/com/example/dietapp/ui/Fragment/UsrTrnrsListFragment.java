@@ -85,7 +85,7 @@ public class UsrTrnrsListFragment extends Fragment implements SwipeRefreshLayout
 
             @Override
             public void run() {
-                mSwipeRefreshLayout.setRefreshing(true);
+
                 // Fetching data from server
                 viewtrainer_user();
             }

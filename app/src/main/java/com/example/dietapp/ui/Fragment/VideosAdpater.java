@@ -51,7 +51,7 @@ public class VideosAdpater extends RecyclerView.Adapter {
         Bean b1 = new Bean();
         b1 = arr.get(position);
 
-       // ((VideosAdpater.Holder0) holder).tname.setText(b1.getTname());
+       // ((VideosAdpater.Holder0) holder).tname.setText(arr.get(position).);
 //        ((VideosAdpater.Holder0) holder).tphone.setText(b1.getTphone());
 //        ((VideosAdpater.Holder0) holder).tcenter.setText(b1.getTcenter());
 
