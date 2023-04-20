@@ -51,9 +51,9 @@ public class VideosAdpater extends RecyclerView.Adapter {
         Bean b1 = new Bean();
         b1 = arr.get(position);
 
-        ((VideosAdpater.Holder0) holder).tname.setText(b1.getTname());
-        ((VideosAdpater.Holder0) holder).tphone.setText(b1.getTphone());
-        ((VideosAdpater.Holder0) holder).tcenter.setText(b1.getTcenter());
+       // ((VideosAdpater.Holder0) holder).tname.setText(b1.getTname());
+//        ((VideosAdpater.Holder0) holder).tphone.setText(b1.getTphone());
+//        ((VideosAdpater.Holder0) holder).tcenter.setText(b1.getTcenter());
 
 
         setAnimation(holder.itemView, position);
@@ -84,9 +84,9 @@ public class VideosAdpater extends RecyclerView.Adapter {
         public Holder0(View itemView) {
             super(itemView);
             cardview = (CardView) itemView.findViewById(R.id.trainer_card);
-            tname = (TextView) itemView.findViewById(R.id.trainer_name);
-            tphone = (TextView) itemView.findViewById(R.id.tphone);
-            tcenter = (TextView) itemView.findViewById(R.id.text_center);
+//            tname = (TextView) itemView.findViewById(R.id.trainer_name);
+//            tphone = (TextView) itemView.findViewById(R.id.tphone);
+//            tcenter = (TextView) itemView.findViewById(R.id.text_center);
 
         }
     }

@@ -71,11 +71,11 @@ public interface ApInterface {
     @GET("view_trainee_user.php")
     Call<ResponseBody> viewtrainee();
 
-    @FormUrlEncoded
-    @POST(".php")
-    Call<ResponseBody> viewvideos(String uid);
+    //@FormUrlEncoded
+    @GET("get_videos.php")
+    Call<ResponseBody> viewvideos();
 
-//    @GET("view_weight.php")
+    @GET("view_weight.php")
     Call<ResponseBody> view_weight();
 
     @FormUrlEncoded

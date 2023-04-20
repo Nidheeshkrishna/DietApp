@@ -1,5 +1,6 @@
 package com.example.dietapp.ui.Fragment;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -33,8 +34,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-
-public class UserVideoFragment extends Fragment  implements SwipeRefreshLayout.OnRefreshListener{
+public class UserVideoFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
     RecyclerView recyclerView;
     SwipeRefreshLayout mSwipeRefreshLayout;
@@ -45,7 +45,6 @@ public class UserVideoFragment extends Fragment  implements SwipeRefreshLayout.O
     private TrainerAdapter mAdapter;
     private LinearLayoutManager layoutManager;
     Spinner spin_weight;
-
 
     public UserVideoFragment() {
         // Required empty public constructor
@@ -67,45 +66,52 @@ public class UserVideoFragment extends Fragment  implements SwipeRefreshLayout.O
         }
     }
 
+    @SuppressLint("MissingInflatedId")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+            Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_user_video, container, false);
-        recyclerView = view.findViewById(R.id.rcv_trainers);
-        spin_weight=view.findViewById(R.id.spinner_weight);
+        recyclerView = view.findViewById(R.id.rcv_videos);
+        spin_weight = view.findViewById(R.id.spinner_weight);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(),
                 LinearLayoutManager.VERTICAL, false));
         arr = new ArrayList<Bean>();
-        mSwipeRefreshLayout = (SwipeRefreshLayout)view.findViewById(R.id.swipe_trainers_user);
-        mSwipeRefreshLayout.setOnRefreshListener(this);
-        mSwipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary,
-                android.R.color.holo_green_dark,
-                android.R.color.holo_orange_dark,
-                android.R.color.holo_blue_dark);
-        mSwipeRefreshLayout.post(new Runnable() {
+        view_weight();
+        viewvideos(SignInActivity.uid);
 
-            @Override
-            public void run() {
-                mSwipeRefreshLayout.setRefreshing(true);
-                // Fetching data from server
-                viewvideos(SignInActivity.uid);
-                view_weight();
-            }
-        });
+//        mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_trainers_user);
+//
+//
+//       mSwipeRefreshLayout.setOnRefreshListener(this);
+//        mSwipeRefreshLayout.setRefreshing(true);
+//        mSwipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary,
+//                android.R.color.holo_green_dark,
+//                android.R.color.holo_orange_dark,
+//                android.R.color.holo_blue_dark);
+//        mSwipeRefreshLayout.post(() -> {
+//            mSwipeRefreshLayout.setRefreshing(true);
+//            // Fetching data from server
+//            viewvideos(SignInActivity.uid);
+//
+//        });
+
+
+
+
         return view;
     }
 
-    private void view_weight() {
+    public void view_weight() {
 
         ApInterface ap = RetrofitClass.getClient().create(ApInterface.class);
         Call<ResponseBody> ca = ap.view_weight();
-        mSwipeRefreshLayout.setRefreshing(true);
+       // mSwipeRefreshLayout.setRefreshing(true);
         ca.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (response.isSuccessful()) {
-                    mSwipeRefreshLayout.setRefreshing(false);
+                 //   mSwipeRefreshLayout.setRefreshing(false);
                     try {
                         String out = response.body().string().trim();
                         if (out.equals("null")) {
@@ -125,7 +131,7 @@ public class UserVideoFragment extends Fragment  implements SwipeRefreshLayout.O
                             recyclerView.setAdapter(ad);
                             ad.notifyDataSetChanged();
                             // Stopping swipe refresh
-                            mSwipeRefreshLayout.setRefreshing(false);
+                          //  mSwipeRefreshLayout.setRefreshing(false);
 
                         }
                     } catch (IOException e) {
@@ -147,13 +153,13 @@ public class UserVideoFragment extends Fragment  implements SwipeRefreshLayout.O
     private void viewvideos(String uid) {
 
         ApInterface ap = RetrofitClass.getClient().create(ApInterface.class);
-        Call<ResponseBody> ca = ap.viewvideos(uid);
-        mSwipeRefreshLayout.setRefreshing(true);
+        Call<ResponseBody> ca = ap.viewvideos();
+       // mSwipeRefreshLayout.setRefreshing(true);
         ca.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (response.isSuccessful()) {
-                    mSwipeRefreshLayout.setRefreshing(false);
+                   // mSwipeRefreshLayout.setRefreshing(false);
                     try {
                         String out = response.body().string().trim();
                         if (out.equals("null")) {
@@ -165,10 +171,13 @@ public class UserVideoFragment extends Fragment  implements SwipeRefreshLayout.O
                             JSONObject ob = jar.getJSONObject(i);
                             Bean Allshops = new Bean();
                             // Allshops.setTid(ob.getString("tid"));
-                            Allshops.setTname(ob.getString("name"));
-                            Allshops.setTphone(ob.getString("phone"));
-                            Allshops.setTcenter(ob.getString("tcenter"));
+                            Allshops.setTname(ob.getString("video"));
+                            Allshops.setTphone(ob.getString("day"));
+                            Allshops.setTcenter(ob.getString("des"));
 
+//                            Allshops.setTname("video");
+//                            Allshops.setTphone("phone");
+//                            Allshops.setTcenter("tcenter");
                             arr.add(Allshops);
                             ad = new VideosAdpater(arr, getActivity());
                             recyclerView.setHasFixedSize(true);
@@ -177,7 +186,7 @@ public class UserVideoFragment extends Fragment  implements SwipeRefreshLayout.O
                             recyclerView.setAdapter(ad);
                             ad.notifyDataSetChanged();
                             // Stopping swipe refresh
-                            mSwipeRefreshLayout.setRefreshing(false);
+                            //mSwipeRefreshLayout.setRefreshing(false);
 
                         }
                     } catch (IOException e) {
