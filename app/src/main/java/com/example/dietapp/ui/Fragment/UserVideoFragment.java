@@ -92,7 +92,7 @@ public class UserVideoFragment extends Fragment implements SwipeRefreshLayout.On
 
             @Override
             public void run() {
-               // mSwipeRefreshLayout.setRefreshing(true);
+               //mSwipeRefreshLayout.setRefreshing(true);
                 // Fetching data from server
                viewvideos("");
             }
@@ -157,12 +157,12 @@ public class UserVideoFragment extends Fragment implements SwipeRefreshLayout.On
 
         ApInterface ap = RetrofitClass.getClient().create(ApInterface.class);
         Call<ResponseBody> ca = ap.viewvideos();
-        mSwipeRefreshLayout.setRefreshing(true);
+       // mSwipeRefreshLayout.setRefreshing(true);
         ca.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (response.isSuccessful()) {
-                   // mSwipeRefreshLayout.setRefreshing(false);
+                    mSwipeRefreshLayout.setRefreshing(false);
                     try {
                         String out = response.body().string().trim();
                         if (out.equals("null")) {
@@ -174,7 +174,11 @@ public class UserVideoFragment extends Fragment implements SwipeRefreshLayout.On
                             JSONObject ob = jar.getJSONObject(i);
                             Bean Allshops = new Bean();
                             // Allshops.setTid(ob.getString("tid"));
-                            Allshops.setTname(ob.getString("video"));
+                            //Allshops.setTname(ob.getString("video"));
+                            //Allshops.setTphone(ob.getString("day"));
+                            //Allshops.setTcenter(ob.getString("des"));
+
+                            Allshops.setVideoUrl(ob.getString("video"));
                             Allshops.setTphone(ob.getString("day"));
                             Allshops.setTcenter(ob.getString("des"));
 

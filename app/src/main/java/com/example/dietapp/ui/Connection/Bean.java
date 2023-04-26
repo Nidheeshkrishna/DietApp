@@ -8,11 +8,17 @@ public class Bean {
     private String qty,status;
     private String id,breakfast,dinner,lunch,days,weight;
 
+    private String videoUrl;
 
     public Bean() {
     }
 
-
+    public String getVideoUrl() {
+        return videoUrl;
+    }
+    public void setVideoUrl(String videoUrl) {
+        this.videoUrl = videoUrl;
+    }
     public String getTrstatus() {
         return trstatus;
     }
