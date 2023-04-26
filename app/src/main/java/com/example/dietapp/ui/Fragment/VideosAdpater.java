@@ -1,5 +1,8 @@
 package com.example.dietapp.ui.Fragment;
 
+import static com.example.dietapp.ui.constant.url;
+import static com.example.dietapp.ui.constant.videoUrl;
+
 import android.content.Context;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -58,13 +61,15 @@ public class VideosAdpater extends RecyclerView.Adapter {
 //        ((VideosAdpater.Holder0) holder).tcenter.setText(b1.getTcenter());
         VideoView simpleVideoView = ((Holder0) holder).simpleVideoView;
         MediaController mediaControls = new MediaController(c);
+        mediaControls.requestFocus();
         mediaControls.setAnchorView(simpleVideoView);
 
-simpleVideoView.setMediaController(mediaControls);
 
-        Uri video = Uri.parse(arr.get(position).getVideoUrl());
+
+
+        Uri video = Uri.parse(videoUrl+"web/TRAINEE/"+arr.get(position).getVideoUrl());
         simpleVideoView.setVideoURI(video);
-        simpleVideoView.start();
+
 
 
 
@@ -75,12 +80,24 @@ simpleVideoView.setMediaController(mediaControls);
             public void onPrepared(MediaPlayer mp) {
 
                 mp.setLooping(true);
-
-                simpleVideoView.start();
+                simpleVideoView.setMediaController(mediaControls);
+                mediaControls.show();
 
 
             }
         });
+
+        simpleVideoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                mediaControls.hide();
+
+            }
+        });
+
+
+
         setAnimation(holder.itemView, position);
     }
 
